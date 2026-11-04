@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/LabAddressSnapshot/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "const": "DisposableLabAddressSnapshot"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$"
+    },
+    "switchId": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "adapterGuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "addresses": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "IPAddress": {
+            "enum": [
+              "192.0.2.241",
+              "fd42:6364:786c::241"
+            ]
+          },
+          "PrefixLength": {
+            "enum": [
+              32,
+              128
+            ]
+          },
+          "SkipAsSource": {
+            "const": true
+          },
+          "PolicyStore": {
+            "const": "ActiveStore"
+          }
+        },
+        "required": [
+          "IPAddress",
+          "PrefixLength",
+          "SkipAsSource",
+          "PolicyStore"
+        ]
+      }
+    }
+  },
+  "required": [
+    "kind",
+    "runId",
+    "switchId",
+    "adapterGuid",
+    "addresses"
+  ]
+}

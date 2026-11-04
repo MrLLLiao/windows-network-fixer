@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/EvidenceRecord/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collectorVersion": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "locator",
+        "collectorVersion"
+      ]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "endedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "principalRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collectionStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "SKIP",
+        "BLOCKED",
+        "NOT_RUN"
+      ]
+    },
+    "payloadRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payloadSha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "projection": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "redactions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "source",
+    "startedAt",
+    "endedAt",
+    "principalRef",
+    "collectionStatus",
+    "payloadRef",
+    "payloadSha256",
+    "projection",
+    "redactions",
+    "error"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "collectionStatus": {
+            "const": "PASS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payloadRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "payloadSha256": {
+            "type": "string"
+          },
+          "error": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "payloadRef": {
+            "type": "null"
+          },
+          "payloadSha256": {
+            "type": "null"
+          },
+          "error": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/TransactionJournal/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^TransactionJournal-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "const": "flclash-windows-network/0.2.0"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "changeSetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "changeSetHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "owner": {
+      "enum": [
+        "windows",
+        "flclash"
+      ]
+    },
+    "targetStableId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "beforeStateHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "desiredAfterHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "state": {
+      "enum": [
+        "PLANNED",
+        "APPROVED",
+        "APPLYING",
+        "VALIDATING",
+        "COMMITTED",
+        "FAILED_VALIDATION",
+        "ROLLING_BACK",
+        "ROLLED_BACK",
+        "ROLLBACK_FAILED",
+        "MANUAL_RECOVERY_REQUIRED"
+      ]
+    },
+    "approval": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1
+            },
+            "approvedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "bindingHash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "scope",
+            "principal",
+            "approvedAt",
+            "expiresAt",
+            "bindingHash"
+          ]
+        }
+      ]
+    },
+    "fencing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "token": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32,64}$"
+        },
+        "issuedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "token",
+        "issuedAt",
+        "expiresAt"
+      ]
+    },
+    "validationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "unrestoredResourceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "transitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "state": {
+            "enum": [
+              "PLANNED",
+              "APPROVED",
+              "APPLYING",
+              "VALIDATING",
+              "COMMITTED",
+              "FAILED_VALIDATION",
+              "ROLLING_BACK",
+              "ROLLED_BACK",
+              "ROLLBACK_FAILED",
+              "MANUAL_RECOVERY_REQUIRED"
+            ]
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "previousEventHash": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "eventHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "journalDataHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "sequence",
+          "state",
+          "at",
+          "reason",
+          "previousEventHash",
+          "eventHash",
+          "journalDataHash"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "changeSetId",
+    "changeSetHash",
+    "owner",
+    "targetStableId",
+    "beforeStateHash",
+    "desiredAfterHash",
+    "state",
+    "approval",
+    "fencing",
+    "validationIds",
+    "unrestoredResourceIds",
+    "failureReason",
+    "updatedAt",
+    "transitions"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "PLANNED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "approval": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "ROLLED_BACK"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "validationIds": {
+            "minItems": 1
+          },
+          "unrestoredResourceIds": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "COMMITTED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "validationIds": {
+            "minItems": 1
+          },
+          "unrestoredResourceIds": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

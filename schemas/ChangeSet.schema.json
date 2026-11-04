@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/ChangeSet/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "const": "flclash-windows-network/0.2.0"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "proposalId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "logicalUnit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resource": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "adapter",
+                  "dns",
+                  "route",
+                  "proxy",
+                  "flclash"
+                ]
+              },
+              "stableId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "enum": [
+                  "windows",
+                  "policy",
+                  "flclash",
+                  "upstream",
+                  "unknown"
+                ]
+              },
+              "addressFamily": {
+                "enum": [
+                  "IPv4",
+                  "IPv6",
+                  "Both",
+                  "NA"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "stableId",
+              "scope",
+              "owner",
+              "addressFamily"
+            ]
+          },
+          "adapter": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parameters": {
+            "type": "object"
+          },
+          "preconditionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "inverse": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "manualRecovery": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "resource",
+          "adapter",
+          "parameters",
+          "preconditionIds",
+          "inverse",
+          "manualRecovery"
+        ]
+      }
+    },
+    "expectedBeforeHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "desiredAfter": {
+      "type": "object"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "proposalId",
+    "logicalUnit",
+    "operations",
+    "expectedBeforeHash",
+    "desiredAfter",
+    "dependencies"
+  ]
+}

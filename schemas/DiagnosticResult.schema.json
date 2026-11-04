@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/DiagnosticResult/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "layer": {
+      "enum": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8"
+      ]
+    },
+    "family": {
+      "enum": [
+        "IPv4",
+        "IPv6",
+        "Both",
+        "NA"
+      ]
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "adapter",
+            "dns",
+            "route",
+            "proxy",
+            "flclash"
+          ]
+        },
+        "stableId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "enum": [
+            "windows",
+            "policy",
+            "flclash",
+            "upstream",
+            "unknown"
+          ]
+        },
+        "addressFamily": {
+          "enum": [
+            "IPv4",
+            "IPv6",
+            "Both",
+            "NA"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "stableId",
+        "scope",
+        "owner",
+        "addressFamily"
+      ]
+    },
+    "observation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hypothesis": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rootCause": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "confirmed",
+        "supported",
+        "insufficient"
+      ]
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "excluded": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "layer",
+    "family",
+    "resource",
+    "observation",
+    "hypothesis",
+    "rootCause",
+    "confidence",
+    "tests",
+    "excluded",
+    "openQuestions"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "const": "confirmed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rootCause": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidenceIds": {
+            "minItems": 1
+          },
+          "tests": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

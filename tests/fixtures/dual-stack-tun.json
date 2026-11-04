@@ -1,0 +1,13 @@
+{
+  "environment": [{"windowsVersion":"SYNTHETIC","powershell":"7.4.0","sampling":"synthetic fixture"}],
+  "interfaces": [{"InterfaceGuid":"00000000-0000-0000-0000-000000000001","ifIndex":2,"Name":"Synthetic Ethernet","InterfaceDescription":"Synthetic adapter","Status":"Up","Virtual":false,"HardwareInterface":true},{"InterfaceGuid":"00000000-0000-0000-0000-000000000002","ifIndex":3,"Name":"Synthetic FlClash","InterfaceDescription":"Meta Tunnel","Status":"Up","Virtual":true,"HardwareInterface":false}],
+  "addresses": [{"InterfaceIndex":2,"AddressFamily":"IPv4","IPAddress":"192.0.2.10","PrefixLength":24},{"InterfaceIndex":3,"AddressFamily":"IPv6","IPAddress":"fd00::1","PrefixLength":64}],
+  "ipInterfaces": [{"InterfaceIndex":2,"AddressFamily":"IPv4","Dhcp":"Enabled","InterfaceMetric":25}],
+  "routes": [{"InterfaceIndex":2,"AddressFamily":"IPv4","DestinationPrefix":"0.0.0.0/0","NextHop":"192.0.2.1","RouteMetric":20,"Store":"ActiveStore"},{"InterfaceIndex":3,"AddressFamily":"IPv6","DestinationPrefix":"::/0","NextHop":"fd00::2","RouteMetric":0,"Store":"ActiveStore"}],
+  "dns": [{"InterfaceIndex":2,"AddressFamily":"IPv4","ServerAddresses":["192.0.2.53"]}],
+  "nrpt": [],
+  "proxies": [{"scope":"synthetic-user HKCU","ProxyEnable":0,"ProxyServerPresent":true,"AutoConfigUrlPresent":false,"AutoDetect":"UNKNOWN","WinHttp":"UNKNOWN"}],
+  "processes": [{"name":"FlClashCore","processId":42,"path":"SYNTHETIC","fileVersion":null}],
+  "listeners": [{"LocalAddress":"127.0.0.1","LocalPort":19090,"OwningProcess":42}],
+  "dataDirectories": []
+}

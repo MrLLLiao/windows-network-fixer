@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/ChangeProposal/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "baselineId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "diagnosticIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "adapter",
+            "dns",
+            "route",
+            "proxy",
+            "flclash"
+          ]
+        },
+        "stableId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "enum": [
+            "windows",
+            "policy",
+            "flclash",
+            "upstream",
+            "unknown"
+          ]
+        },
+        "addressFamily": {
+          "enum": [
+            "IPv4",
+            "IPv6",
+            "Both",
+            "NA"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "stableId",
+        "scope",
+        "owner",
+        "addressFamily"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "expectedOutcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resource": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "adapter",
+                  "dns",
+                  "route",
+                  "proxy",
+                  "flclash"
+                ]
+              },
+              "stableId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "enum": [
+                  "windows",
+                  "policy",
+                  "flclash",
+                  "upstream",
+                  "unknown"
+                ]
+              },
+              "addressFamily": {
+                "enum": [
+                  "IPv4",
+                  "IPv6",
+                  "Both",
+                  "NA"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "stableId",
+              "scope",
+              "owner",
+              "addressFamily"
+            ]
+          },
+          "operator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected": {},
+          "evidenceFreshnessSeconds": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "resource",
+          "operator",
+          "expected",
+          "evidenceFreshnessSeconds"
+        ]
+      }
+    },
+    "authorization": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1
+            },
+            "at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+            }
+          },
+          "required": [
+            "scope",
+            "principal",
+            "at",
+            "expiresAt"
+          ]
+        }
+      ]
+    },
+    "changeSetId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "validationPlan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "testId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "adapter",
+                  "dns",
+                  "route",
+                  "proxy",
+                  "flclash"
+                ]
+              },
+              "stableId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "enum": [
+                  "windows",
+                  "policy",
+                  "flclash",
+                  "upstream",
+                  "unknown"
+                ]
+              },
+              "addressFamily": {
+                "enum": [
+                  "IPv4",
+                  "IPv6",
+                  "Both",
+                  "NA"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "stableId",
+              "scope",
+              "owner",
+              "addressFamily"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "family": {
+            "enum": [
+              "IPv4",
+              "IPv6",
+              "Both",
+              "NA"
+            ]
+          },
+          "expected": {},
+          "blocking": {
+            "type": "boolean"
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120
+          },
+          "repetitions": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "allowedFailureReason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "testId",
+          "target",
+          "path",
+          "family",
+          "expected",
+          "blocking",
+          "timeoutSeconds",
+          "repetitions",
+          "allowedFailureReason"
+        ]
+      }
+    },
+    "recoveryPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recoverability": {
+          "const": "none"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "recoverability",
+        "reason"
+      ]
+    },
+    "state": {
+      "const": "PLANNED"
+    },
+    "executable": {
+      "const": false
+    },
+    "evidenceSteps": {
+      "minItems": 1,
+      "items": {
+        "required": [
+          "id",
+          "diagnosticId",
+          "family",
+          "evidenceIds",
+          "action",
+          "expectedObservation",
+          "status",
+          "networkChange"
+        ],
+        "properties": {
+          "evidenceIds": {
+            "minItems": 1,
+            "items": {
+              "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "action": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "diagnosticId": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "family": {
+            "enum": [
+              "IPv4",
+              "IPv6",
+              "Both",
+              "NA"
+            ]
+          },
+          "expectedObservation": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "networkChange": {
+            "const": false
+          },
+          "status": {
+            "const": "NOT_RUN"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "baselineId",
+    "diagnosticIds",
+    "resource",
+    "reason",
+    "risk",
+    "expectedOutcome",
+    "preconditions",
+    "authorization",
+    "changeSetId",
+    "validationPlan",
+    "recoveryPlan",
+    "state",
+    "executable",
+    "evidenceSteps"
+  ]
+}

@@ -1,0 +1,12 @@
+.graphflow/
+graphify-out/
+*.log
+*.zip
+__pycache__/
+.w1mer/
+state/
+artifacts/
+WORKPLAN.md
+.env
+.env.*
+*.local.*

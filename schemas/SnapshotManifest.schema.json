@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/SnapshotManifest/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "snapshotId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "baselineId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "adapter",
+              "dns",
+              "route",
+              "proxy",
+              "flclash"
+            ]
+          },
+          "stableId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner": {
+            "enum": [
+              "windows",
+              "policy",
+              "flclash",
+              "upstream",
+              "unknown"
+            ]
+          },
+          "addressFamily": {
+            "enum": [
+              "IPv4",
+              "IPv6",
+              "Both",
+              "NA"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "stableId",
+          "scope",
+          "owner",
+          "addressFamily"
+        ]
+      }
+    },
+    "hostEnvironment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "synthetic": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "synthetic"
+      ]
+    },
+    "beforeStateRef": {
+      "const": "baseline.json"
+    },
+    "diffRef": {
+      "type": "null"
+    },
+    "affectedComponents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "restorePreconditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resource": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "adapter",
+                  "dns",
+                  "route",
+                  "proxy",
+                  "flclash"
+                ]
+              },
+              "stableId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "enum": [
+                  "windows",
+                  "policy",
+                  "flclash",
+                  "upstream",
+                  "unknown"
+                ]
+              },
+              "addressFamily": {
+                "enum": [
+                  "IPv4",
+                  "IPv6",
+                  "Both",
+                  "NA"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "stableId",
+              "scope",
+              "owner",
+              "addressFamily"
+            ]
+          },
+          "operator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected": {},
+          "evidenceFreshnessSeconds": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "resource",
+          "operator",
+          "expected",
+          "evidenceFreshnessSeconds"
+        ]
+      }
+    },
+    "payloadHashes": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "file",
+          "sha256"
+        ]
+      }
+    },
+    "manifestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "recoverability": {
+      "const": "none"
+    },
+    "secretRefs": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "observationOnly": {
+      "const": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "snapshotId",
+    "baselineId",
+    "scope",
+    "hostEnvironment",
+    "beforeStateRef",
+    "diffRef",
+    "affectedComponents",
+    "restorePreconditions",
+    "payloadHashes",
+    "manifestHash",
+    "recoverability",
+    "secretRefs",
+    "observationOnly"
+  ]
+}

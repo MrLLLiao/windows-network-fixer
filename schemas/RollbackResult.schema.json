@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/RollbackResult/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "const": "flclash-windows-network/0.2.0"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "changeId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "snapshotId": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "feasibility": {
+      "type": "object"
+    },
+    "attemptedOperations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "restoredResources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "adapter",
+              "dns",
+              "route",
+              "proxy",
+              "flclash"
+            ]
+          },
+          "stableId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner": {
+            "enum": [
+              "windows",
+              "policy",
+              "flclash",
+              "upstream",
+              "unknown"
+            ]
+          },
+          "addressFamily": {
+            "enum": [
+              "IPv4",
+              "IPv6",
+              "Both",
+              "NA"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "stableId",
+          "scope",
+          "owner",
+          "addressFamily"
+        ]
+      }
+    },
+    "unrestoredResources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "adapter",
+              "dns",
+              "route",
+              "proxy",
+              "flclash"
+            ]
+          },
+          "stableId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner": {
+            "enum": [
+              "windows",
+              "policy",
+              "flclash",
+              "upstream",
+              "unknown"
+            ]
+          },
+          "addressFamily": {
+            "enum": [
+              "IPv4",
+              "IPv6",
+              "Both",
+              "NA"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "stableId",
+          "scope",
+          "owner",
+          "addressFamily"
+        ]
+      }
+    },
+    "validationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "finalState": {
+      "enum": [
+        "ROLLED_BACK",
+        "ROLLBACK_FAILED",
+        "MANUAL_RECOVERY_REQUIRED"
+      ]
+    },
+    "manualSteps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "changeId",
+    "snapshotId",
+    "feasibility",
+    "attemptedOperations",
+    "restoredResources",
+    "unrestoredResources",
+    "validationIds",
+    "finalState",
+    "manualSteps"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "finalState": {
+            "const": "ROLLED_BACK"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "validationIds": {
+            "minItems": 1
+          },
+          "unrestoredResources": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "finalState": {
+            "const": "ROLLBACK_FAILED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unrestoredResources": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "finalState": {
+            "const": "MANUAL_RECOVERY_REQUIRED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "manualSteps": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

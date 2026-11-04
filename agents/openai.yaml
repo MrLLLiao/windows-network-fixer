@@ -1,0 +1,6 @@
+interface:
+  display_name: "Windows 网络诊断与修复"
+  short_description: "诊断路由、双栈和代理竞态，核验防火墙与疑似攻击，执行精确修复及条件回滚"
+  default_prompt: "使用 $windows-network-fixer 调查本机网络，按地址族和路径取证，在已有授权范围内生成并执行可验证、可条件回滚的精确修复。"
+policy:
+  allow_implicit_invocation: true

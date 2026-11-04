@@ -1,0 +1,998 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/NetworkBaseline/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "baselineWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "interfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "addresses": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "dns": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "proxies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ipInterfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "nrpt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "processes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "listeners": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "dataDirectories": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "flclash": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "DOCUMENTED",
+            "PROPOSED",
+            "UNKNOWN"
+          ]
+        },
+        "value": {},
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+          }
+        },
+        "unknownReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "value",
+        "evidenceIds",
+        "unknownReason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "unknownReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceIds": {
+                "minItems": 1
+              },
+              "unknownReason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "consistency": {
+      "enum": [
+        "stable",
+        "changed",
+        "unknown"
+      ]
+    },
+    "synthetic": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "baselineWindow",
+    "environment",
+    "interfaces",
+    "addresses",
+    "routes",
+    "dns",
+    "proxies",
+    "ipInterfaces",
+    "nrpt",
+    "processes",
+    "listeners",
+    "dataDirectories",
+    "flclash",
+    "capabilities",
+    "consistency",
+    "synthetic"
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/flclash-network/ValidationResult/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+    },
+    "hostRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "enum": [
+        "flclash-windows-network/0.1.0",
+        "flclash-windows-network/0.2.0"
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+      }
+    },
+    "testId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changeId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z]+-[0-9a-fA-F-]{36}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "adapter",
+            "dns",
+            "route",
+            "proxy",
+            "flclash"
+          ]
+        },
+        "stableId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "enum": [
+            "windows",
+            "policy",
+            "flclash",
+            "upstream",
+            "unknown"
+          ]
+        },
+        "addressFamily": {
+          "enum": [
+            "IPv4",
+            "IPv6",
+            "Both",
+            "NA"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "stableId",
+        "scope",
+        "owner",
+        "addressFamily"
+      ]
+    },
+    "startedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "endedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "conditions": {
+      "type": "object"
+    },
+    "observations": {},
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "SKIP",
+        "BLOCKED",
+        "NOT_RUN"
+      ]
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "evidenceLocations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "comparison": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "createdAt",
+    "hostRef",
+    "producer",
+    "evidenceIds",
+    "testId",
+    "changeId",
+    "target",
+    "startedAt",
+    "endedAt",
+    "conditions",
+    "observations",
+    "status",
+    "failureReason",
+    "blocking",
+    "evidenceLocations",
+    "comparison"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "PASS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+          },
+          "endedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "T.*(Z|[+-]\\d\\d:\\d\\d)$"
+          },
+          "observations": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "failureReason": {
+            "type": "null"
+          },
+          "evidenceLocations": {
+            "minItems": 1
+          },
+          "evidenceIds": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "FAIL",
+              "BLOCKED",
+              "NOT_RUN",
+              "SKIP"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "failureReason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}
