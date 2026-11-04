@@ -1,6 +1,6 @@
 # 生产事务、冻结与恢复
 
-v1.0.1 的生产 RepairPlan 和数字事件日志独立于旧 v0.2.0 ChangeSet/TransactionJournal。不要把旧观察快照、LabAddressSnapshot 或离线 approval 传给生产执行器。
+v1.1.0 的生产 RepairPlan 和数字事件日志独立于旧 v0.2.0 ChangeSet/TransactionJournal。不要把旧观察快照、LabAddressSnapshot 或离线 approval 传给生产执行器。
 
 ## 写入约束
 

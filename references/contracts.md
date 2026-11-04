@@ -50,7 +50,7 @@ ROLLING_BACK -> ROLLED_BACK | ROLLBACK_FAILED | MANUAL_RECOVERY_REQUIRED
 
 `Get-NetworkRecoveryDecision` 只读取 journal 与独立提供的 current-state SHA-256，绝不调用写入器。before/current/desired 三方比较会区分未执行、已执行待验证、部分执行、第三方漂移和完成状态。所有分支输出 `safeToReplay=false` 与 `automaticWriteAllowed=false`；进程退出码、旧回执或散列一致都不能替代独立状态读取。
 
-`RollbackResult` 的 `ROLLED_BACK` 需要有独立验证，且不能隐藏未恢复资源。`ROLLBACK_FAILED` 必须列出未恢复资源；`MANUAL_RECOVERY_REQUIRED` 必须包含非空白的人工步骤。无法证明的状态保留 `MANUAL_RECOVERY_REQUIRED`。这些是旧离线合同；v1.0.1 的生产 apply/rollback 使用独立的 RepairPlan 与磁盘事件日志，详见 [recovery.md](recovery.md)。
+`RollbackResult` 的 `ROLLED_BACK` 需要有独立验证，且不能隐藏未恢复资源。`ROLLBACK_FAILED` 必须列出未恢复资源；`MANUAL_RECOVERY_REQUIRED` 必须包含非空白的人工步骤。无法证明的状态保留 `MANUAL_RECOVERY_REQUIRED`。这些是旧离线合同；v1.1.0 的生产 apply/rollback 使用独立的 RepairPlan 与磁盘事件日志，详见 [recovery.md](recovery.md)。
 
 ## 隔离 Lab 快照
 

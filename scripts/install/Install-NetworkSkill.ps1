@@ -19,7 +19,7 @@ foreach($left in @($source,$destinationFull)){
 }
 if($source.Equals($destinationFull,[StringComparison]::OrdinalIgnoreCase)){throw 'Run installation from a separate source package.'}
 $manifest=Get-Content -LiteralPath (Join-Path $source 'manifests/compatibility.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-if($manifest.version -ne '1.0.1'){throw 'Unexpected source version.'}
+if($manifest.version -ne '1.1.0'){throw 'Unexpected source version.'}
 $releasePaths=@('CHANGELOG.md','SKILL.md','agents','manifests','references','schemas','scripts','tests')
 $files=@(foreach($relative in $releasePaths){
     $path=Assert-NetworkSafePath (Join-Path $source $relative)

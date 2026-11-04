@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.1.0",
   "minimumPowerShell": "7.4",
   "platform": "Windows",
   "apply": true,
@@ -51,13 +51,14 @@
     "isolatedLabGate": "PASS",
     "repairCoordinatorSynthetic": "PASS",
     "repairRegressionCount": "26/26",
-    "legacyRegressionCount": "77/77",
+    "legacyRegressionCount": "78/78",
     "liveSmokeCount": "5/5",
     "pathProbeLoopbackIPv4": "PASS",
     "pathProbeLoopbackIPv6": "PASS",
     "tlsUntrustedCertificateRejected": "PASS",
     "installerBackupAndHashVerification": "PASS_ISOLATED_DESTINATION",
     "cleanRelease": "PASS",
+    "cleanCheckoutTrackedExport": "PASS",
     "isolatedLabLive": "NOT_RUN",
     "hostReadOnly": "PASS_WITH_PER_COLLECTOR_LIMITS",
     "auditLive": "PASS_WITH_DEFENDER_CIM_UNAVAILABLE",
@@ -76,5 +77,5 @@
     "flclashRuntime": "UNKNOWN",
     "mihomo": "UNKNOWN"
   },
-  "notes": "26 repair tests cover coordinator failure paths and actual leaf functions with mocked Windows providers. 77 legacy checks pass. Five live smoke checks exercise IPv4/IPv6 loopback, TLS rejection, native subscription cleanup and an isolated installation. Live audit/watch and read-only IPv4/IPv6 DNS classification were checked. No production network configuration was changed. Native event registration was verified without deliberately changing a production route or proxy. Native public egress, proxy egress, and live production apply/rollback remain untested."
+  "notes": "1.1.0 tracks scripts/state/State.psm1, scopes the root-only state ignore rule, and makes the clean-release gate export the tracked release manifest instead of the filesystem so ignored source cannot ship again. 26 repair tests cover coordinator failure paths and actual leaf functions with mocked Windows providers. 78 legacy checks pass. Five live smoke checks exercise IPv4/IPv6 loopback, TLS rejection, native subscription cleanup and an isolated installation. Live audit/watch and read-only IPv4/IPv6 DNS classification were checked. No production network configuration was changed. Native event registration was verified without deliberately changing a production route or proxy. Native public egress, proxy egress, and live production apply/rollback remain untested."
 }

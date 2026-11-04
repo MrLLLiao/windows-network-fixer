@@ -8,7 +8,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-000000?logo=github&logoColor=white)](https://github.com/MrLLLiao/windows-network-fixer)&#160;
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)&#160;
-[![Version](https://img.shields.io/badge/Version-1.0.1-blue.svg)](CHANGELOG.md)&#160;
+[![Version](https://img.shields.io/badge/Version-1.1.0-blue.svg)](CHANGELOG.md)&#160;
 [![Windows](https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows)](https://www.microsoft.com/windows/)&#160;
 [![PowerShell 7.4+](https://img.shields.io/badge/PowerShell-7.4%2B-5391FE?logo=powershell&logoColor=white)](https://learn.microsoft.com/powershell/)&#160;
 [![GitHub stars](https://img.shields.io/github/stars/MrLLLiao/windows-network-fixer?style=social)](https://github.com/MrLLLiao/windows-network-fixer)
@@ -63,6 +63,7 @@ Unlike blanket network resets, it keeps observation read-only until a host-, use
 
 ### 📢 News
 
+- **2026-11-04** 🚀 **v1.1.0** — Restored the missing tracked state module and added a clean-checkout release gate.
 - **2026-11-04** 🚀 **v1.0.1** — Renamed to `windows-network-fixer`, added the public repository and MIT license.
 - **2026-11-04** 🧰 **v1.0.0** — Added bounded production repair, audit, watch, native event subscriptions, path probes and process checks.
 - **2026-11-04** 🧪 **v0.2.0** — Added offline transaction semantics, same-host IPv4/IPv6 socket validation and an isolated Hyper-V lab.
@@ -234,10 +235,10 @@ Detailed operating guidance lives in [security.md](references/security.md), [rec
 
 | Suite | Scope | Current result |
 |:---|:---|:---|
-| Legacy regression | Contracts, storage, routing logic and recovery semantics | **77 / 77** |
+| Legacy regression | Contracts, storage, routing logic, tracked release source and recovery semantics | **78 / 78** |
 | Repair regression | Coordinator failure paths and leaf providers with mocked Windows APIs | **26 / 26** |
 | Live smoke | IPv4/IPv6 loopback, untrusted TLS rejection, native subscriptions and isolated install | **5 / 5** |
-| Clean release | Fresh whitelist export, fixture, socket gate, lab gate and both regression suites | **PASS** |
+| Clean release | Tracked-manifest export, installer preview, fixture, socket gate, lab gate and both regression suites | **PASS** |
 
 Production `apply` and `rollback` were not live-tested on the development host. Native public egress, proxy egress and live firewall blocking are not claimed as verified. See [compatibility.json](manifests/compatibility.json) for the exact tested scope.
 
@@ -256,7 +257,7 @@ Contributions are welcome for new evidence collectors, dual-stack playbooks, pro
   author = {MrLLLiao},
   title = {{Windows Network Fixer}},
   year = {2026},
-  version = {1.0.1},
+  version = {1.1.0},
   url = {https://github.com/MrLLLiao/windows-network-fixer}
 }
 ```

@@ -4,7 +4,8 @@ graphify-out/
 *.zip
 __pycache__/
 .w1mer/
-state/
+/state/
+!scripts/state/
 artifacts/
 WORKPLAN.md
 .env

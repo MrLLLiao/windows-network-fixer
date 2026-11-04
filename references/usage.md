@@ -79,7 +79,7 @@ $next = & $entry -Intent snapshot -StateRoot $state
 & $entry -Intent diff -StateRoot $state -RunId $baseline.runId -OtherRunId $next.runId
 ```
 
-传统观察仍使用 v0.2.0 producer/schema，兼容 v0.1.0；技能版本为 v1.0.1。观察快照不可恢复。audit/watch/repair-plan 不是传统观察快照，不能传给旧 integrity/diff。audit-manifest 仅记录文件散列，没有签名。
+传统观察仍使用 v0.2.0 producer/schema，兼容 v0.1.0；技能版本为 v1.1.0。观察快照不可恢复。audit/watch/repair-plan 不是传统观察快照，不能传给旧 integrity/diff。audit-manifest 仅记录文件散列，没有签名。
 
 只读 FlClash 控制器要求明确数字 loopback 根 URI 和准确进程所有权；非默认安装还需准确可执行文件路径。不自动探测端口或密钥。
 

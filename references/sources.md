@@ -1,6 +1,6 @@
 # 官方依据
 
-核验日期：2026-11-04。资料事实不代表 v1.0.1 已在目标主机完成相应操作。
+核验日期：2026-11-04。资料事实不代表 v1.1.0 已在目标主机完成相应操作。
 
 - [FlClash 官方说明](https://github.com/chen08209/FlClash/blob/main/README.md)：客户端使用 Mihomo，支持系统代理与 TUN。
 - [FlClash v0.9.1 路径源码](https://github.com/chen08209/FlClash/blob/v0.9.1/lib/common/path.dart)：应用支持目录的来源；目录存在仍只作为候选。

@@ -33,6 +33,20 @@ if($Revision){
     if($LASTEXITCODE -ne 0){throw 'Tracked release export failed.'}
     Expand-Archive -LiteralPath $archive -DestinationPath $release
     $exportKind='git archive (tracked content only)'
+}elseif((Test-Path -LiteralPath (Join-Path $root '.git')) -and (& git -C $root rev-parse --is-inside-work-tree 2>$null) -eq 'true'){
+    # A default run must model a clean checkout: only files tracked for release are exported.
+    # The previous filesystem copy masked .gitignore rules that silently excluded source.
+    [IO.Directory]::CreateDirectory($release)|Out-Null
+    $tracked=@(& git -C $root ls-files -- $releasePaths)
+    if($LASTEXITCODE -ne 0){throw 'Tracked release manifest read failed.'}
+    foreach($relative in $tracked){
+        $sourcePath=Join-Path $root $relative
+        if(-not(Test-Path -LiteralPath $sourcePath -PathType Leaf)){throw "Tracked release file is missing from the working tree: $relative"}
+        $target=Join-Path $release $relative
+        [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($target))|Out-Null
+        Copy-Item -LiteralPath $sourcePath -Destination $target -ErrorAction Stop
+    }
+    $exportKind='git tracked-file manifest export; ignored and untracked release files excluded'
 }else{
     [IO.Directory]::CreateDirectory($release)|Out-Null
     foreach($path in $releasePaths){
@@ -46,11 +60,17 @@ $unexpected=@(Get-ChildItem -LiteralPath $release -Force | Where-Object {
 Assert ($unexpected.Count -eq 0) 'Release whitelist exported internal or state content.'
 $entry=Join-Path $release 'scripts/entrypoints/Invoke-NetworkSkill.ps1'
 $state=Join-Path $output 'observations'
+$installDestination=Join-Path $output 'install-target/windows-network-fixer'
+$installBackup=Join-Path $output 'install-backups'
+$installPreview=& (Join-Path $release 'scripts/install/Install-NetworkSkill.ps1') -Destination $installDestination -BackupRoot $installBackup -WhatIf
+Assert ($installPreview.status -eq 'NOT_RUN') 'Clean export installer preview failed.'
+Assert (-not(Test-Path -LiteralPath $installDestination)) 'Installer preview wrote to the destination.'
 $manifest=Get-Content -LiteralPath (Join-Path $release 'manifests/compatibility.json') -Raw|ConvertFrom-Json
 $skill=Get-Content -LiteralPath (Join-Path $release 'SKILL.md') -Raw
-Assert ($manifest.version -eq '1.0.1') 'Clean export version mismatch.'
+Assert (Test-Path -LiteralPath (Join-Path $release 'scripts/state/State.psm1') -PathType Leaf) 'Clean export omitted scripts/state/State.psm1.'
+Assert ($manifest.version -eq '1.1.0') 'Clean export version mismatch.'
 Assert ($skill -match '(?m)^\s*name:\s*windows-network-fixer\s*$') 'Clean export SKILL name mismatch.'
-Assert ($skill -match '(?m)^\s+version:\s*"1\.0\.1"\s*$') 'Clean export SKILL metadata mismatch.'
+Assert ($skill -match '(?m)^\s+version:\s*"1\.1\.0"\s*$') 'Clean export SKILL metadata mismatch.'
 Assert ($manifest.apply -and $manifest.rollback -and -not $manifest.restoreReadySnapshots) 'Clean export production execution policy mismatch.'
 $first=& $entry -Intent plan -Fixture -StateRoot $state
 $second=& $entry -Intent snapshot -Fixture -StateRoot $state
@@ -127,6 +147,7 @@ $result=@{
     sameHostSocket='PASS'
     negativeBindGuards='PASS'
     labGate='PASS'
+    installerPreview='PASS'
     regression="$($regression.passed)/$($regression.passed + $regression.failed)"
     repairRegression="$($repair.passed)/$($repair.passed + $repair.failed)"
     mutations='BLOCKED_WITHOUT_PLAN'

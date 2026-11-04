@@ -282,9 +282,9 @@ Check 'evidence schema rejects failed read with payload' {
 Check 'release version and producer compatibility policy are coherent' {
     $manifest=Get-Content -LiteralPath (Join-Path $root 'manifests/compatibility.json') -Raw|ConvertFrom-Json
     $skill=Get-Content -LiteralPath (Join-Path $root 'SKILL.md') -Raw
-    Assert ($manifest.version -eq '1.0.1') 'Compatibility manifest version is not 1.0.1.'
+    Assert ($manifest.version -eq '1.1.0') 'Compatibility manifest version is not 1.1.0.'
     Assert ($skill -match '(?m)^\s*name:\s*windows-network-fixer\s*$') 'SKILL name is not windows-network-fixer.'
-    Assert ($skill -match '(?m)^\s+version:\s*"1\.0\.1"\s*$') 'SKILL metadata version is not 1.0.1.'
+    Assert ($skill -match '(?m)^\s+version:\s*"1\.1\.0"\s*$') 'SKILL metadata version is not 1.1.0.'
     $newObject=New-NetworkObject -Type EvidenceRecord -Context $context
     Assert ($newObject.producer -eq 'flclash-windows-network/0.2.0') 'New objects do not use producer 0.2.0.'
     foreach($name in @('EvidenceRecord','NetworkBaseline','DiagnosticResult','ChangeProposal','SnapshotManifest','ValidationResult')){
@@ -294,6 +294,17 @@ Check 'release version and producer compatibility policy are coherent' {
     foreach($name in @('ChangeSet','RollbackResult','TransactionJournal')){
         $schema=Get-Content -LiteralPath (Join-Path $root "schemas/$name.schema.json") -Raw|ConvertFrom-Json -AsHashtable
         Assert ($schema.properties.producer.const -eq 'flclash-windows-network/0.2.0') "$name incorrectly accepts legacy mutation producer."
+    }
+}
+Check 'state module is tracked and cannot be swallowed by ignore rules' {
+    if(Test-Path -LiteralPath (Join-Path $root '.git')){
+        $inside=& git -C $root rev-parse --is-inside-work-tree 2>$null
+        if($inside -eq 'true'){
+            & git -C $root ls-files --error-unmatch 'scripts/state/State.psm1' 2>$null | Out-Null
+            Assert ($LASTEXITCODE -eq 0) 'scripts/state/State.psm1 is not tracked by Git.'
+            $ignored=& git -C $root check-ignore -- 'scripts/state/State.psm1' 2>$null
+            Assert ($LASTEXITCODE -ne 0 -and [string]::IsNullOrWhiteSpace(($ignored -join ''))) 'scripts/state/State.psm1 is still excluded by .gitignore.'
+        }
     }
 }
 Check 'transaction module export set contains no network write cmdlets' {

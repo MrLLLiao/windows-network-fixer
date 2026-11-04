@@ -2,12 +2,12 @@
 name: windows-network-fixer
 description: 诊断和修复 Windows 本机网络、FlClash/Mihomo 及多代理冲突；覆盖路由、DNS、IPv4/IPv6 分族验证、波动采样、防火墙与疑似入侵取证。执行可审阅计划、精确资源变更和条件回滚。
 metadata:
-  version: "1.0.1"
+  version: "1.1.0"
 ---
 
 # Windows 网络诊断与修复
 
-Windows、PowerShell 7.4+。默认只读取证；用户要求修复时，根据证据生成可执行计划并在已有授权范围内继续。开发本技能的授权不等于修改开发机网络的授权。不要把 v0.2.0 的生产写入关闭规则继续套到 v1.0.1。
+Windows、PowerShell 7.4+。默认只读取证；用户要求修复时，根据证据生成可执行计划并在已有授权范围内继续。开发本技能的授权不等于修改开发机网络的授权。不要把 v0.2.0 的生产写入关闭规则继续套到 v1.1.0。
 
 入口：`scripts/entrypoints/Invoke-NetworkSkill.ps1`。以技能的实际绝对目录定位。无需安装模块、连接器、服务或浏览器插件。日常命令与输出见 [usage.md](references/usage.md)。
 

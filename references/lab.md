@@ -1,6 +1,6 @@
 # 一次性 Hyper-V Internal 实验室
 
-本页是旧隔离 Lab 的操作合同。它只用于验证地址增删、Socket 门禁、hash-bound 快照和中断恢复，不修复生产网络。v1.0.1 的生产修复使用独立 RepairPlan，见 [repair.md](repair.md)。
+本页是旧隔离 Lab 的操作合同。它只用于验证地址增删、Socket 门禁、hash-bound 快照和中断恢复，不修复生产网络。v1.1.0 的生产修复使用独立 RepairPlan，见 [repair.md](repair.md)。
 
 ## 固定范围
 
