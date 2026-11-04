@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Windows Network Fixer workflow</title>
+  <desc id="desc">Read-only evidence feeds a bounded repair plan, hash-gated execution, independent readback and rollback.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.55" stop-color="#0b1b33"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="440" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="440" rx="24" fill="url(#grid)"/>
+  <rect x="1.5" y="1.5" width="1197" height="437" rx="22.5" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="3"/>
+  <rect x="0" y="0" width="1200" height="8" rx="4" fill="url(#accent)"/>
+
+  <g transform="translate(72 76)">
+    <rect width="132" height="30" rx="15" fill="#38bdf8" fill-opacity="0.12" stroke="#38bdf8" stroke-opacity="0.35"/>
+    <text x="66" y="20" text-anchor="middle" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#7dd3fc">CODEX SKILL</text>
+
+    <text x="0" y="94" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.8" fill="#f8fafc">Windows</text>
+    <text x="0" y="150" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.8" fill="#f8fafc">Network Fixer</text>
+
+    <text x="0" y="194" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="17" fill="#94a3b8">Evidence first. One change at a time. Recoverable by design.</text>
+
+    <g transform="translate(0 228)" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="12" font-weight="600">
+      <rect width="72" height="30" rx="8" fill="#0ea5e9" fill-opacity="0.12" stroke="#0ea5e9" stroke-opacity="0.35"/>
+      <text x="36" y="20" text-anchor="middle" fill="#7dd3fc">IPv4</text>
+      <rect x="80" width="72" height="30" rx="8" fill="#8b5cf6" fill-opacity="0.12" stroke="#8b5cf6" stroke-opacity="0.35"/>
+      <text x="116" y="20" text-anchor="middle" fill="#c4b5fd">IPv6</text>
+      <rect x="160" width="72" height="30" rx="8" fill="#f59e0b" fill-opacity="0.10" stroke="#f59e0b" stroke-opacity="0.32"/>
+      <text x="196" y="20" text-anchor="middle" fill="#fbbf24">DNS</text>
+      <rect x="240" width="84" height="30" rx="8" fill="#10b981" fill-opacity="0.10" stroke="#10b981" stroke-opacity="0.32"/>
+      <text x="282" y="20" text-anchor="middle" fill="#6ee7b7">Proxy</text>
+      <rect x="332" width="92" height="30" rx="8" fill="#f43f5e" fill-opacity="0.10" stroke="#f43f5e" stroke-opacity="0.32"/>
+      <text x="378" y="20" text-anchor="middle" fill="#fda4af">Firewall</text>
+    </g>
+
+    <g transform="translate(0 292)">
+      <rect width="210" height="42" rx="10" fill="#0f172a" stroke="#22d3ee" stroke-opacity="0.45"/>
+      <circle cx="20" cy="21" r="5" fill="#22d3ee"/>
+      <text x="36" y="26" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#cffafe">READ-ONLY DEFAULT</text>
+      <text x="230" y="27" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="13" fill="#64748b">PowerShell 7.4+</text>
+    </g>
+  </g>
+
+  <g transform="translate(610 68)" font-family="Segoe UI, Inter, Arial, sans-serif" filter="url(#shadow)">
+    <rect width="520" height="304" rx="18" fill="#0b1220" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="28" y="35" font-size="12" font-weight="700" letter-spacing="1.5" fill="#64748b">REPAIR PIPELINE</text>
+    <line x1="28" y1="51" x2="492" y2="51" stroke="#ffffff" stroke-opacity="0.08"/>
+
+    <g transform="translate(28 70)">
+      <rect width="464" height="38" rx="9" fill="#0ea5e9" fill-opacity="0.10" stroke="#0ea5e9" stroke-opacity="0.30"/>
+      <circle cx="19" cy="19" r="7" fill="#0ea5e9"/>
+      <text x="38" y="24" font-size="13" font-weight="700" fill="#e0f2fe">Collect evidence</text>
+      <text x="446" y="24" text-anchor="end" font-size="11" fill="#64748b">READ ONLY</text>
+    </g>
+
+    <g transform="translate(28 119)">
+      <rect width="464" height="38" rx="9" fill="#8b5cf6" fill-opacity="0.10" stroke="#8b5cf6" stroke-opacity="0.30"/>
+      <circle cx="19" cy="19" r="7" fill="#8b5cf6"/>
+      <text x="38" y="24" font-size="13" font-weight="700" fill="#ede9fe">Bind one-resource plan</text>
+      <text x="446" y="24" text-anchor="end" font-size="11" fill="#64748b">HOST + HASH</text>
+    </g>
+
+    <g transform="translate(28 168)">
+      <rect width="464" height="38" rx="9" fill="#f59e0b" fill-opacity="0.09" stroke="#f59e0b" stroke-opacity="0.28"/>
+      <circle cx="19" cy="19" r="7" fill="#f59e0b"/>
+      <text x="38" y="24" font-size="13" font-weight="700" fill="#fef3c7">Apply after fresh pre-state check</text>
+      <text x="446" y="24" text-anchor="end" font-size="11" fill="#64748b">ONE MUTATION</text>
+    </g>
+
+    <g transform="translate(28 217)">
+      <rect width="464" height="38" rx="9" fill="#10b981" fill-opacity="0.09" stroke="#10b981" stroke-opacity="0.28"/>
+      <circle cx="19" cy="19" r="7" fill="#10b981"/>
+      <text x="38" y="24" font-size="13" font-weight="700" fill="#dcfce7">Independent readback</text>
+      <text x="446" y="24" text-anchor="end" font-size="11" fill="#64748b">VERIFY</text>
+    </g>
+
+    <g transform="translate(28 266)">
+      <rect width="464" height="38" rx="9" fill="#f43f5e" fill-opacity="0.08" stroke="#f43f5e" stroke-opacity="0.26"/>
+      <circle cx="19" cy="19" r="7" fill="#f43f5e"/>
+      <text x="38" y="24" font-size="13" font-weight="700" fill="#ffe4e6">Rollback, freeze or manual recovery</text>
+      <text x="446" y="24" text-anchor="end" font-size="11" fill="#64748b">FAIL CLOSED</text>
+    </g>
+
+    <g stroke="#94a3b8" stroke-opacity="0.30" stroke-width="2">
+      <path d="M19 108v11" marker-end="url(#arrow)"/>
+      <path d="M19 157v11" marker-end="url(#arrow)"/>
+      <path d="M19 206v11" marker-end="url(#arrow)"/>
+      <path d="M19 255v11" marker-end="url(#arrow)"/>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#94a3b8" fill-opacity="0.55"/>
+    </marker>
+  </defs>
+</svg>

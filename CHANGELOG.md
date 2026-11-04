@@ -5,6 +5,7 @@
 - 技能更名为 `windows-network-fixer`，安装器默认目录、备份前缀与 UI 调用名同步更新。
 - 发布版本升至 1.0.1；保留旧 producer、Schema、生产状态根、全局互斥名和 RepairPlan 合同版本，避免破坏既有事务与可回滚计划。
 - 增加公开仓库 README 与 MIT LICENSE。
+- 重构 GitHub README：新增 teaser、Highlights、Mermaid 流程、能力表、快速开始、安全边界、验证、引用与 Star History。
 
 ## 1.0.0 — 2026-11-04
 
