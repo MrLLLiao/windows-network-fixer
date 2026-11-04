@@ -1,5 +1,7 @@
 # Windows Network Fixer
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Windows 本机网络诊断与受控修复技能，面向 Codex 和其他支持 `SKILL.md` 的代理运行环境。重点覆盖路由表、接口 metric、DNS、IPv4/IPv6 分族验证、FlClash/Mihomo 与多代理瞬时竞态、防火墙状态和有限本机安全取证。
 
 默认只读取证。生产修复必须先生成绑定当前主机、用户、前态、目标和有效期的单资源配置计划，再使用计划散列执行；支持独立读回、失败补偿和条件回滚。
